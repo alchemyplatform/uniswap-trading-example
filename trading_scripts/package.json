@@ -1,0 +1,71 @@
+{
+  "name": "alchemy-uniswap-trading-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "format-file": "prettier --write",
+    "format": "find . | grep -v node_modules | grep -v dist | egrep '\\.(js(on)?|md|scss|tsx?)?$' | xargs npm run format-file",
+    "lint-file": "eslint --fix",
+    "lint": "eslint --fix '**/*.ts'",
+    "trade": "ts-node --transpile-only src/index.ts",
+    "typecheck-watch": "tsc --noEmit --watch",
+    "typecheck": "tsc --noEmit",
+    "generate-contract-types": "typechain --target=web3-v1 --outDir src/declarations/generated/typechain ./node_modules/@uniswap/v2-core/build/UniswapV2ERC20.json & typechain --target=web3-v1 --outDir src/declarations/generated/typechain ./node_modules/@uniswap/v2-core/build/UniswapV2Factory.json & typechain --target=web3-v1 --outDir src/declarations/generated/typechain ./node_modules/@uniswap/v2-core/build/UniswapV2Pair.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,json}": [
+      "npm run format-file"
+    ],
+    "**/*.{ts,tsx}": [
+      "npm run lint-file --fix",
+      "npm run format-file"
+    ]
+  },
+  "devDependencies": {
+    "@alch/alchemy-web3": "^0.1.13",
+    "@types/node": "^13.11.1",
+    "@types/yargs": "^15.0.9",
+    "husky": "^4.2.4",
+    "lint-staged": "^10.1.3",
+    "prettier": "^2.0.4",
+    "ts-node": "^8.8.2",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3",
+    "web3": "^1.3.0",
+    "yargs": "^16.1.0"
+  },
+  "dependencies": {
+    "@ethersproject/address": "^5.0.5",
+    "@ethersproject/contracts": "^5.0.5",
+    "@ethersproject/providers": "^5.0.13",
+    "@ethersproject/solidity": "^5.0.5",
+    "@typechain/web3-v1": "^1.0.0",
+    "@types/graphlib": "^2.1.7",
+    "@types/lodash.dropright": "^4.1.6",
+    "@types/lodash.tail": "^4.1.6",
+    "@types/lodash.zip": "^4.2.6",
+    "@types/prompts": "^2.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "@uniswap/sdk": "^3.0.3",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "graphlib": "^2.1.8",
+    "lodash.dropright": "^4.1.1",
+    "lodash.tail": "^4.1.1",
+    "lodash.zip": "^4.2.0",
+    "prompts": "^2.3.2",
+    "transducist": "^2.2.0",
+    "typechain": "^3.0.0"
+  }
+}
